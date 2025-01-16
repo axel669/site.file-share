@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+        <title>File Share?</title>
+    </head>
+    <body ws-x="@@theme:tron">
+        <script src="https://cdn.jsdelivr.net/npm/@axel669/windstorm@0.5.0/dist/browser.js"></script>
+        <script type="module" src="./send.js"></script>
+
+        <ws-paper ws-x="[w min(360px, 100%)] [m auto]">
+            <ws-titlebar ws-x="[$header]">
+                <span ws-x="[$title] [$color @primary] [$title-text] [$fill]">
+                    Peer2Peer File Share Sender
+                </span>
+            </ws-titlebar>
+
+            <ws-flex ws-x="[$content]">
+                <fieldset ws-x="[r 4px] [b 1px solid @field-color]" x-data :style='$store.app.stateColor'>
+                    <legend>Status</legend>
+                    <span x-data x-text="$store.app.state"></span>
+                    <ws-circle-spinner ws-x="[@size 40px]"
+                    x-data x-show="$store.app.loading">
+                    </ws-circle-spinner>
+                </fieldset>
+
+                <fieldset ws-x="[r 4px] [b 1px solid @primary]">
+                    <legend>Your Name</legend>
+                    <span x-data x-text='$store.app.name'></span>
+                </fieldset>
+
+                <fieldset ws-x="[r 4px] [b 1px solid @accent]">
+                    <legend>Host Name</legend>
+                    <span x-data x-text='$store.app.host ?? "Not connected"'></span>
+                </fieldset>
+
+                <ws-flex x-data x-show='$store.app.state === "connected"' ws-x="[p 0px]">
+                    <button ws-x="[$color @primary] [$outline]" @click="$store.app.pickFile">
+                        Send File
+                    </button>
+                    <div x-data x-show="$store.app.sent !== null">
+                        Sending
+                        <span x-data x-text="$store.app.file?.name"></span>
+                        <span x-data x-text="$store.app.progress"></span>
+                    </div>
+                </ws-flex>
+            </ws-flex>
+        </ws-paper>
+    </body>
+</html>

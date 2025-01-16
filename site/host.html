@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+        <title>File Share?</title>
+    </head>
+    <body ws-x="@@theme:tron">
+        <script src="https://cdn.jsdelivr.net/npm/@axel669/windstorm@0.5.0/dist/browser.js"></script>
+        <script type="module" src="./host.js"></script>
+
+        <!-- <ws-screen ws-x="[@screen-width min(320px, 100%)] [h min(100%, 640px)]"> -->
+        <ws-paper ws-x="[w min(360px, 100%)] [m auto]">
+            <ws-titlebar ws-x="[$header]">
+                <span ws-x="[$title] [$color @primary] [$title-text] [$fill]">
+                    Peer2Peer File Share Host
+                </span>
+            </ws-titlebar>
+            <ws-flex ws-x="[$content]">
+                <fieldset ws-x="[r 4px] [b 1px solid @field-color]"
+                x-data :style='$store.app.stateColor'>
+                    <legend>Status</legend>
+                    <span x-data x-text="$store.app.state"></span>
+                    <div x-data x-show='$store.app.state === "ready"' ws-x="[pos relative]">
+                        <button ws-x="[w 100%] [$flat] [$color @secondary]"
+                        x-data @click="$store.action.copyLink">
+                            Copy Connection URL
+                        </button>
+                        <ws-mini-toast ws-x="[pos absolute] [y 100%] [inset.x 0px] [$color @secondary]"
+                        x-data x-show="$store.app.modal.copy">
+                            <span ws-x="[$notif-text] [fl.main center]">
+                                Connection URL copied
+                            </span>
+                        </ws-mini-toast>
+                    </div>
+                </fieldset>
+
+                <fieldset ws-x="[r 4px] [b 1px solid @primary]">
+                    <legend>Your Name</legend>
+                    <span x-data x-text='$store.app.name'></span>
+                </fieldset>
+
+                <fieldset ws-x="[r 4px] [b 1px solid @accent]">
+                    <legend>Peer Name</legend>
+                    <span x-data x-text='$store.app.peer ?? "Not connected"'></span>
+                </fieldset>
+
+                <div x-data x-show='$store.app.fileName !== null'>
+                    <divx-data x-show='$store.app.partsCount === 0'>
+                        <span x-data x-text="$store.app.peer"></span> wants to send
+                        <span x-data x-text='$store.app.fileName'>wat</span>
+                        <br />
+                        <button ws-x="[$color @secondary] [$fill]" @click="$store.action.acceptFile">
+                            Accept File
+                        </button>
+                    </div>
+                    <div x-data x-show='$store.app.partsCount !== 0'>
+                        Receiving
+                        <span x-data x-text="$store.app.fileName"></span>
+                        <span x-data x-text="$store.app.progress"></span>
+                    </div>
+                </div>
+            </ws-flex>
+        </ws-paper>
+        <!-- </ws-screen> -->
+    </body>
+</html>

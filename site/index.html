@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=5,minimum-scale=1,width=device-width">
+        <title>File Share?</title>
+    </head>
+    <body ws-x="@@theme:tron">
+        <script src="https://cdn.jsdelivr.net/npm/@axel669/windstorm@0.5.0/dist/browser.js"></script>
+
+        <ws-paper ws-x="[w min(360px, 100%)] [m auto]">
+            <ws-titlebar ws-x="[$header]">
+                <span ws-x="[$title] [$color @primary] [$title-text] [$fill]">
+                    Peer2Peer File Share Site
+                </span>
+            </ws-titlebar>
+
+            <ws-flex ws-x="[$content]">
+                <span>
+                    This site is for sending files without size restrictions to
+                    people (one person at a time) without the need for a server
+                    to handle the transfer. One person needs to be the host for
+                    the transfer, the other is the sender. This does mean that
+                    files can only be transfered one way with each pair of URLs
+                    (for now). Any number of files can be sent with one session,
+                    but only one file can be sent at a time. Click the button
+                    below to load the host page, it will generate the sender
+                    URL that pairs with it. Host pages can be reused, but it is
+                    not recommended to.
+                </span>
+
+                <a ws-x="@@button [$fill] [$color @secondary]">
+                    Host File Transfer
+                </a>
+            </ws-flex>
+        </ws-paper>
+
+        <script type="module">
+            import asuid from "https://esm.sh/@axel669/asuid"
+
+            const url = new URL(
+                `/host?id=${asuid()}`,
+                document.location
+            )
+            document.querySelector("a").href = url.href
+        </script>
+    </body>
+</html>
